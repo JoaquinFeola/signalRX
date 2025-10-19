@@ -1,21 +1,21 @@
-import { Form } from './components/Form'
-import { Text } from './components/Text'
+
+import { useSignal } from "@/Core/Hooks/useSignal"
 import "./App.css"
-
-
+import { authSignal } from "./store/authStore"
 
 
 function App() {
-  const d = async() =>  {
-    console.log(navigator)
-  }
-  d()
+  const data = useSignal(authSignal, (data) => data);
   return (
     <>
-      <Text />
-      <Form />
+    <span>{data}</span>
+      <label style={{display: "flex", flexDirection: "column", gap: 10}} htmlFor="token">
+        <span>Token</span>
+        <input value={data} type="text" onChange={e => authSignal.setValue(e.target.value)} placeholder="token" />
+      </label>
     </>
   )
 }
+
 
 export default App

@@ -1,25 +1,15 @@
-import { createObserver } from "../../Core/utils/observer";
+import { Signal } from "@/Core/Classes/Signal.class";
 
-export const listObserver = createObserver(
-  {
-    list: [] as { title: string }[],
-  },
-  true
-);
-
-
-export const addToList = (listItem: { title: string }) => {
-  if (listItem.title.trim().length <= 0) return;
-
-  listObserver.setData(prev => ({
-    ...prev,
-    list: [...prev.list, listItem]
-  }))
+interface AuthSignalState {
+  token: string | null;
+  isAuthenticated: boolean;
 }
-export const quitFromList = (index: number) => {
 
-  listObserver.setData(prev => ({
-    ...prev,
-    list: prev.list.filter((_, i) => i !== index)
-  }))
-}
+export const authSignal = new Signal<string>("aaaa", {
+  storage: {
+    name: "auth-store",
+    storageType: "localstorage",
+    values: true
+  }
+});
+
