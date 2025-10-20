@@ -6,12 +6,20 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [dts({ tsconfigPath: "./tsconfig.app.json", rollupTypes: true })],
+  plugins: [
+    dts({
+      insertTypesEntry: true,
+      rollupTypes: true,
+      outDir: path.resolve(__dirname, 'dist'),
+      entryRoot: path.resolve(__dirname, 'src'),
+      tsconfigPath: "./tsconfig.app.json"
+    })
+  ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, './src/index.ts'),
+      entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'signalJS',
-      formats: ["es"],
+      formats: ["es", "cjs"],
       fileName: "main"
     },
     rollupOptions: {

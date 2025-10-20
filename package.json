@@ -1,12 +1,12 @@
 {
   "name": "signaljs",
   "version": "1.0.0",
-  "main": "./dist/main.js",
+  "main": "dist/main.js",
   "description": "A lightweight library for managing signals as global reactive stores.",
   "type": "module",
-  "types": "./dist/main.d.ts",
+  "types": "dist/main.d.ts",
   "files": [
-    "./dist"
+   "dist"
   ],
   "scripts": {
     "build": "tsc -b && vite build",
