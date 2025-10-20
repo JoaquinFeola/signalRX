@@ -1,17 +1,9 @@
-{ "git": {
-    "commitMessage": "chore: release v${version}",
-    "tagName": "v${version}",
-    "requireCleanWorkingDir": true
-  },
-  "npm": {
-    "publish": true,
-    "npmPublish": true,
-    "publishArgs": ["--access", "public"]
+{
+  "$schema": "https://unpkg.com/release-it@19/schema/release-it.json",
+  "git": {
+    "commitMessage": "chore: release v${version}"
   },
   "github": {
     "release": true
-  },
-  "hooks": {
-    "before:init": "npm run build"
   }
 }
