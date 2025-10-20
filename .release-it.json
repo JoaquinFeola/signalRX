@@ -5,7 +5,8 @@
   },
   "npm": {
     "publish": true,
-    "npmPublish": true
+    "npmPublish": true,
+    "publishArgs": ["--access", "public"]
   },
   "github": {
     "release": true
