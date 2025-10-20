@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write # 👈 necesario para hacer git push
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -14,6 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Necesario para los tags
+          token: ${{ secrets.GITHUB_TOKEN }} # usa el token del workflow
 
       - name: 🧰 Setup Node.js
         uses: actions/setup-node@v4
@@ -31,18 +35,19 @@ jobs:
         run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
+
       - name: 🧾 Configure Git user
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: npm version patch
+      - name: 🏷️ Bump version
         run: npm version patch
 
-      - name: 📤 Push changes
+      - name: 📤 Push changes (tag + version)
         run: |
           git push origin main --follow-tags
+
       - name: 🚀 Publish to npm
         run: npm publish --access public
         env:
