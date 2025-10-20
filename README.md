@@ -226,6 +226,11 @@ const authSignalStore: Signal<AuthSignalState> = new Signal<AuthSignalState>(
 
 ---
 
+## Contributing
+
+If you want to contribute, please **fork this repository** and create a **pull request**.
+Direct pushes to `main` are not allowed.
+
 ## 📜 License
 
 MIT © 2025 — Created with ❤️ by [Joaquin Feola](https://github.com/JoaquinFeola)

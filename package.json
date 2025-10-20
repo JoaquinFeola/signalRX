@@ -1,8 +1,13 @@
 {
   "name": "signaljs",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "main": "./dist/main.js",
+  "description": "A lightweight library for managing signals as global reactive stores.",
   "type": "module",
+  "types": "./dist/main.d.ts",
+  "files": [
+    "./dist"
+  ],
   "scripts": {
     "build": "tsc -b && vite build",
     "lint": "eslint ."
@@ -16,6 +21,19 @@
     "typescript-eslint": "^8.46.1",
     "vite": "^7.1.10",
     "vite-plugin-dts": "^4.5.4"
+  },
+  "keywords": [
+    "signal",
+    "reactive",
+    "store",
+    "typescript",
+    "global-state"
+  ],
+  "author": "Joaquin Feola",
+  "license": "MIT",
+   "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuusuario/signaljs.git"
   },
   "exports": {
     ".": {
