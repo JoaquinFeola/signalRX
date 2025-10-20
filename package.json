@@ -34,7 +34,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tuusuario/signaljs.git"
+    "url": "git+https://github.com/JoaquinFeola/signalRX.git"
   },
   "exports": {
     ".": {
