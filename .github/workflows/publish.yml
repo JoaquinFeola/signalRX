@@ -24,6 +24,11 @@ jobs:
 
       - name: 📦 Install dependencies
         run: npm ci
+      - name: 🔑 Authenticate to npm
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: 🚀 Release via release-it
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
