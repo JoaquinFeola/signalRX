@@ -1,16 +1,16 @@
 
-# 💡 SignalJS
+# 💡 SignalRX
 
-**SignalJS** is a lightweight and highly optimized library for managing **signals** as global reactive stores in a simple, efficient, and intuitive way.
+**SignalRX** is a lightweight and highly optimized library for managing **signals** as global reactive stores in a simple, efficient, and intuitive way.
 
 ---
 
 ## 🚀 Installation
 
 ```bash
-npm install signaljs
+npm install signaljx
 # or
-yarn add signaljs
+yarn add signaljx
 ```
 
 ---
@@ -20,7 +20,7 @@ yarn add signaljs
 ### 🧱 Create a Signal Store
 
 ```typescript
-import { Signal } from "signalJS";
+import { Signal } from "signalRX";
 
 interface AuthSignalState {
   isAuthenticated: boolean;
@@ -38,7 +38,7 @@ export const authSignalStore: Signal<AuthSignalState> = new Signal<AuthSignalSta
 ### 📥 Get Data
 
 ```typescript
-import { Signal } from "signalJS";
+import { Signal } from "signalRX";
 
 interface AuthSignalState {
   isAuthenticated: boolean;
@@ -68,7 +68,7 @@ const newData = authSignalStore.getValue(value => ({
 ### ⚙️ Update Data
 
 ```typescript
-import { Signal } from "signalJS";
+import { Signal } from "signalRX";
 
 interface AuthSignalState {
   isAuthenticated: boolean;
@@ -92,7 +92,7 @@ authSignalStore.setData({ isAuthenticated: true, token: "token example" });
 ### 📡 Subscribe to the Signal
 
 ```typescript
-import { Signal } from "signalJS";
+import { Signal } from "signalRX";
 
 interface AuthSignalState {
   isAuthenticated: boolean;
@@ -117,7 +117,7 @@ const unsubscribe = authSignalStore.subscribe(value => {
 ### 🧽 Clear All Subscriptions
 
 ```typescript
-import { Signal } from "signalJS";
+import { Signal } from "signalRX";
 
 interface AuthSignalState {
   isAuthenticated: boolean;
@@ -140,7 +140,7 @@ authSignalStore.clearSubscriptions();
 ### 💾 Built-in Storage Configuration
 
 ```typescript
-import { Signal } from "signalJS";
+import { Signal } from "signalRX";
 
 interface AuthSignalState {
   isAuthenticated: boolean;
@@ -170,7 +170,7 @@ const authSignalStore: Signal<AuthSignalState> = new Signal<AuthSignalState>(
 ### 💾 Custom Storage Configuration
 
 ```typescript
-import { Signal } from "signalJS";
+import { Signal } from "signalRX";
 
 interface AuthSignalState {
   isAuthenticated: boolean;

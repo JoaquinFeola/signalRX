@@ -1,5 +1,5 @@
 {
-  "name": "signaljs",
+  "name": "signalrx",
   "version": "1.0.0",
   "description": "A lightweight library for managing signals as global reactive stores.",
   "type": "module",
