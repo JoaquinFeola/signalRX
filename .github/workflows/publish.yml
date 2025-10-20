@@ -24,8 +24,10 @@ jobs:
 
       - name: 📦 Install dependencies
         run: npm ci
-      - run: npx release-it --ci
+      - name: 🚀 Release via release-it
         env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx release-it --ci
       - name: 🏗️ Build package
         run: npm run build
