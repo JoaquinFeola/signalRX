@@ -1,16 +1,12 @@
-name: 🚀 Publish to npm
+name: 🚀 Release SignalJS
 
 on:
   push:
     branches:
       - main
 
-permissions:
-  contents: read
-
 jobs:
-  publish:
-    name: 📦 Build & Publish package
+  release:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +17,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: https://registry.npmjs.org
 
       - name: 📦 Install dependencies
         run: npm ci
@@ -29,7 +25,11 @@ jobs:
       - name: 🏗️ Build package
         run: npm run build
 
-      - name: 🚀 Publish to npm
-        run: npm publish --access public
+      - name: 🔑 Configure npm auth
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      - name: 🚀 Release via release-it
+        run: npx release-it
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
