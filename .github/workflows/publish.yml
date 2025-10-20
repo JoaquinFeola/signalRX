@@ -41,8 +41,8 @@ jobs:
       #     git config user.name "github-actions[bot]"
       #     git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: 🏷️ Bump version
-        run: npm version patch
+      # - name: 🏷️ Bump version
+      #   run: npm version patch
 
       # - name: 📤 Push changes (tag + version)
       #   run: |
