@@ -2,6 +2,7 @@ import { ISignal, SignalSubscribeFunction, SignalConfig, } from '../Interfaces/C
 import { SignalConfigStorage } from '../Interfaces/SignalConfigStorage.interface';
 import { SignalStorage } from '../Interfaces/SignalStorage.interface';
 import { LocalStorageAdapter } from '../StorageAdapters/LocalStorage.adapter';
+import { SessionStorageAdapter } from '../StorageAdapters/SessionStorage.adapter';
 import { Observer } from './Observer.class';
 
 export class Signal<T> extends Observer<T> implements ISignal<T> {
@@ -57,7 +58,18 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
 
     private initializeStorage() {
         this.initializeStorageValues();
-
+        switch (this.config.storage?.storageType ) {
+            case "localstorage":
+                this.storage = LocalStorageAdapter
+                break;
+            case "sessionstorage":
+                this.storage = SessionStorageAdapter
+                break;
+            case "custom":
+                this.storage = this.config.storage.customStorage
+                break;
+        } 
+        
         this.subscribe((value) => {
             if (typeof value == "object" && this.storageValues) {
                 const toSave = Object.fromEntries(
