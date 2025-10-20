@@ -36,17 +36,17 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: 🧾 Configure Git user
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+      # - name: 🧾 Configure Git user
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: 🏷️ Bump version
-        run: npm version patch
+      # - name: 🏷️ Bump version
+      #   run: npm version patch
 
-      - name: 📤 Push changes (tag + version)
-        run: |
-          git push origin main --follow-tags
+      # - name: 📤 Push changes (tag + version)
+      #   run: |
+      #     git push origin main --follow-tags
 
       - name: 🚀 Publish to npm
         run: npm publish --access public
