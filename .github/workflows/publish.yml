@@ -31,8 +31,18 @@ jobs:
         run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      
+      - name: 🧾 Configure Git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: npm version patch
         run: npm version patch
+
+      - name: 📤 Push changes
+        run: |
+          git push origin main --follow-tags
       - name: 🚀 Publish to npm
         run: npm publish --access public
         env:
