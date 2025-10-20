@@ -1,18 +1,18 @@
 import { defineConfig } from 'vite';
-import path from 'path';
 import { fileURLToPath } from 'node:url'
-import { dirname, resolve } from 'node:path';
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
+import path from 'path';
+import dts from "vite-plugin-dts";
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [],
+  plugins: [dts({ tsconfigPath: "./tsconfig.app.json", rollupTypes: true })],
   build: {
     lib: {
-      entry: resolve(__dirname, 'dist/main.js'),
+      entry: path.resolve(__dirname, './src/index.ts'),
       name: 'signalJS',
-      fileName: "my-lab"
+      formats: ["es"],
+      fileName: "main"
     },
     rollupOptions: {
       external: ["vite"]
