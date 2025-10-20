@@ -1,34 +1,34 @@
-import { defineConfig } from 'vite';
-import { fileURLToPath } from 'node:url'
-import path from 'path';
+import { defineConfig } from "vite";
+import { fileURLToPath } from "node:url";
+import path from "path";
 import dts from "vite-plugin-dts";
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// https://vite.dev/config/
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 export default defineConfig({
-  plugins: [
-    dts({
-      insertTypesEntry: true,
-      rollupTypes: true,
-      outDir: path.resolve(__dirname, 'dist'),
-      entryRoot: path.resolve(__dirname, 'src'),
-      tsconfigPath: "./tsconfig.app.json"
-    })
-  ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'signalJS',
-      formats: ["es", "cjs"],
-      fileName: "main"
+      entry: path.resolve(__dirname, "src/index.ts"),
+      name: "SignalJS",
+      formats: ["es"],         
+      fileName: "index"
     },
     rollupOptions: {
-      external: ["vite"]
+      external: ["vite"],      
     }
   },
+  plugins: [
+    dts({
+      rollupTypes: true,                        
+      entryRoot: path.resolve(__dirname, "src"),
+      outDir: path.resolve(__dirname, "dist"),
+      insertTypesEntry: true,
+      tsconfigPath: path.resolve(__dirname, "tsconfig.app.json")
+    })
+  ],
   resolve: {
     alias: {
-      "@": path.join(__dirname, "src")
+      "@": path.resolve(__dirname, "src")
     }
   }
-})
+});

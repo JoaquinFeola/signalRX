@@ -1,12 +1,13 @@
 {
   "name": "signaljs",
   "version": "1.0.0",
-  "main": "dist/main.js",
   "description": "A lightweight library for managing signals as global reactive stores.",
   "type": "module",
-  "types": "dist/main.d.ts",
+   "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-   "dist"
+    "./dist"
   ],
   "scripts": {
     "build": "tsc -b && vite build",
@@ -31,14 +32,14 @@
   ],
   "author": "Joaquin Feola",
   "license": "MIT",
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/tuusuario/signaljs.git"
   },
   "exports": {
     ".": {
-      "import": "./dist/signalJS.js",
-      "require": "./dist/signalsJS.umd.cjs"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     }
   }
 }
