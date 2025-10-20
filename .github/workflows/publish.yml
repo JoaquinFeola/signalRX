@@ -25,8 +25,10 @@ jobs:
       - name: 🏗️ Build package
         run: npm run build
 
+      - name: Create .npmrc for npm publish
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
       - name: 🚀 Release via release-it
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx release-it
