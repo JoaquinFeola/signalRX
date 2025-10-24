@@ -83,8 +83,9 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
                 });
 
                 this.saveToStorage(newSaveValue as T)
+            } else {
+                this.saveToStorage(value);
             }
-            console.log(this.storageValues)
             if (this.storageValues == true) {
                 this.saveToStorage(value as T);
             }
