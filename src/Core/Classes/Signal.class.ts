@@ -67,7 +67,11 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         if ( this.config.storage ) this.storage = storages[this.config.storage?.storageType]
 
         this.subscribe((value) => {
-            if (typeof value == "object" && this.storageValues) {
+
+            if ( typeof value == "object" ) {
+                this.saveToStorage(value);
+            }
+          /*   if (typeof value == "object" && this.storageValues) {
                 const toSave = Object.fromEntries(
                     Object.entries(this.storageValues).filter(([, v]) => v == true)
                 );
@@ -84,10 +88,10 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
             if (typeof value !== "object") {
                 this.saveToStorage(value);
             } 
-            
+
             if (this.storageValues == true) {
                 this.saveToStorage(value as T);
-            }
+            } */
         });
     }
 
