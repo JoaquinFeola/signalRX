@@ -121,7 +121,7 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         const storedValues: Record<keyof T, boolean> = storage.values as Record<keyof T, boolean>; 
 
         for (const key in this.value) {
-            if ( storedValues[key as keyof T] == undefined ) storedValues[key as keyof T] = true;
+             storedValues[key as keyof T] = storedValues[key as keyof T] ?? true;
         }
         console.log(storedValues)
         this.storageValues = storedValues as SignalConfigStorage<T>["values"];
