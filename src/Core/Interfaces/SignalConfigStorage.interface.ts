@@ -4,9 +4,9 @@ export type SignalStorageTypes = "localstorage" | "sessionstorage" | "custom";
 
 interface BaseSignalConfigStorage<T> {
     name: string;
-    values?: T extends string | number
-    ? boolean
-    : Partial<Record<keyof T, boolean>>;
+    values?: boolean | (T extends string | number
+        ? boolean
+        : Partial<Record<keyof T, boolean>>);
     storageType: SignalStorageTypes;
 }
 

@@ -58,35 +58,40 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
 
     private initializeStorage() {
         this.initializeStorageValues();
-        const storages: Record<SignalStorageTypes, SignalStorage> = {
-            custom: this.config.storage?.customStorage as SignalStorage,
+        const { storage } = this.config;
+        if (!storage) return;
+
+
+        const storages: Record<SignalStorageTypes, SignalStorage | undefined> = {
+            custom: this.config.storage?.customStorage,
             localstorage: LocalStorageAdapter,
             sessionstorage: SessionStorageAdapter
         };
 
-        if ( this.config.storage ) this.storage = storages[this.config.storage?.storageType]
+        const storageSelected = storages[storage.storageType];
+
+        if (!storageSelected) {
+            console.warn(`[Signal] Invalid or missing storage adapter for type: ${storage.storageType}`)
+            return;
+        }
+        this.storage = storageSelected;
 
         this.subscribe((value) => {
 
-            if (typeof value == "object" && this.storageValues) {
-                const toSave = Object.fromEntries(
-                    Object.entries(this.storageValues).filter(([, v]) => v == true)
-                );
+            if (typeof value === "object" && this.storageValues && this.storageValues !== true) {
+                const selectedKeys = Object.entries(this.storageValues)
+                    .filter(([, shouldSave]) => shouldSave)
+                    .map(([key]) => key);
 
-                const newSaveValue: Partial<T> = {};
+                const filtered = Object.fromEntries(
+                    selectedKeys.map((k) => [k, value?.[k as keyof T]])
+                ) as Partial<T>;
 
-                Object.keys(toSave).map(k => {
-                    return newSaveValue[k as keyof T] = value?.[k as keyof T]
-                });
+                this.saveToStorage(filtered as T);
+                return;
+            }
 
-                this.saveToStorage(newSaveValue as T)
-            } 
-
-            if (typeof value !== "object") {
-                this.saveToStorage(value);
-            } 
-
-            if (this.storageValues == true) {
+            if (this.storageValues === true || typeof value !== "object") {
                 this.saveToStorage(value as T);
             }
         });
@@ -94,27 +99,31 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
 
 
     private initializeStorageValues() {
-        if (!this.value || !this.config.storage?.values) return;
-        if (typeof this.value !== "object") {
-            this.storageValues = this.config.storage.values;
+        const { storage } = this.config;
+        if (!storage) return;
+
+        if (!this.value || typeof this.value !== "object") {
+            (storage.values)
+                ? this.storageValues = storage.values
+                : this.storageValues = true
+            this.storageValues = storage.values;
             return;
-        };
+        }
 
-        const storedValues = this.config.storage.values;
 
+        const storedValues = storage.values ?? {};
         const falseMap = Object.fromEntries(
             Object.entries(storedValues).filter(([, value]) => value === false)
         ) as Partial<Record<keyof T, boolean>>;
 
         const computedValues = Object.fromEntries(
-            Object.keys(this.value).map(key => [
+            Object.keys(this.value).map((key) => [
                 key,
                 falseMap[key as keyof T] ?? true,
             ])
         ) as Record<keyof T, boolean>;
 
         this.storageValues = computedValues as SignalConfigStorage<T>["values"];
-
     }
 };
 
