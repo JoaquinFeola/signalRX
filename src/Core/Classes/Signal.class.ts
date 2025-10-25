@@ -16,9 +16,8 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         private config: SignalConfig<T> = {} as SignalConfig<T>
     ) {
         super()
-
         if (config.storage) this.initializeStorage();
-        this.initializeValue();
+         this.initializeValue();
     };
 
 
@@ -35,24 +34,29 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         return true;
     };
 
-    private initializeValue() {
+    private     initializeValue() {
         const { storage } = this.config;
 
-        if (storage && this.hasStorageValue()) {
+         if (storage && this.hasStorageValue()) {
             const stored = this.storage.getValue(storage.name);
-            if (stored) {
-                this.value = JSON.parse(stored);
-                return;
+            try {
+                if (stored) {
+                    this.value = JSON.parse(stored);
+                    return;
+                }
+            } catch {
+                console.warn(`[Signal] Invalid JSON in storage: ${storage.name}`);
             }
         }
+
         this.value = this.initialState;
-        if (storage) { this.saveToStorage(this.value); }
+        if (storage)  this.saveToStorage(this.value); 
     }
 
     private saveToStorage(value: T) {
-        if (this.config.storage) {
-            this.storage.setValue(this.config.storage.name, value);
-        }
+        if (!this.config.storage) return;
+
+        this.storage.setValue(this.config.storage.name, value);
     }
 
 
