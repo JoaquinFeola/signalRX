@@ -79,9 +79,12 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
                 });
 
                 this.saveToStorage(newSaveValue as T)
-            } else {
+            } 
+
+            if (typeof value !== "object") {
                 this.saveToStorage(value);
-            }
+            } 
+            
             if (this.storageValues == true) {
                 this.saveToStorage(value as T);
             }
