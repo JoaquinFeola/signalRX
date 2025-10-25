@@ -1,6 +1,6 @@
 import { SignalStorage } from "./SignalStorage.interface";
 
-type SignalStorageTypes = "localstorage" | "sessionstorage" | "custom";
+export type SignalStorageTypes = "localstorage" | "sessionstorage" | "custom";
 
 interface BaseSignalConfigStorage<T> {
     name: string;
