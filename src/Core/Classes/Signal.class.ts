@@ -50,7 +50,7 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         }
 
         this.value = this.initialState;
-        if (storage) this.saveToStorage(this.value);
+        // if (storage) this.saveToStorage(this.value);
     }
 
     private saveToStorage(value: T) {
