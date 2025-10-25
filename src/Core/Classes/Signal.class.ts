@@ -16,8 +16,8 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         private config: SignalConfig<T> = {} as SignalConfig<T>
     ) {
         super();
-        if (config.storage) this.initializeStorage();
         this.initializeValue();
+        if (config.storage) this.initializeStorage();
     };
 
 
@@ -119,7 +119,6 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         }
         
         const storedValues: Record<keyof T, boolean> = storage.values as Record<keyof T, boolean>; 
-        // const computedValues: Record<keyof T, boolean>;
 
         for (const key in this.value) {
             if ( storedValues[key as keyof T] == undefined ) storedValues[key as keyof T] = true;
@@ -128,25 +127,7 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         this.storageValues = storedValues as SignalConfigStorage<T>["values"];
 
     }
-    /* private initializeStorageValues() {
-        const { storage } = this.config;
-        if (!storage) return;
-
-        if (!this.value || typeof this.value !== "object") {
-            // Storage para tipos primitivos o si no hay objeto
-            this.storageValues = storage.values ?? true;
-            return;
-        }
-
-        const storedValues: SignalConfigStorage<T>["values"];  = storage.values ?? {} as SignalConfigStorage<T>["values"];;
-        const computedValues: Record<keyof T, boolean> = {} as any;
-
-        Object.keys(this.value).forEach((key) => {
-            computedValues[key as keyof T] = storedValues[key as keyof T]  as SignalConfigStorage<T>["values"] ?? true;
-        });
-
-        this.storageValues = computedValues as SignalConfigStorage<T>["values"];
-    } */
+    
 };
 
 
