@@ -16,8 +16,8 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         private config: SignalConfig<T> = {} as SignalConfig<T>
     ) {
         super();
-        this.initializeValue();
         if (config.storage) this.initializeStorage();
+        this.initializeValue();
     };
 
 
