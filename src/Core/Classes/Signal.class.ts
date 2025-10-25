@@ -17,8 +17,8 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
     ) {
         super()
 
-        this.initializeValue();
         if (config.storage) this.initializeStorage();
+        this.initializeValue();
     };
 
 
