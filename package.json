@@ -10,7 +10,7 @@
     "./dist"
   ],
   "scripts": {
-    "release": "pnpm version patch && pnpm publish",
+    "release": "git add . && git commit -m \"something to\" && pnpm version patch && pnpm publish",
     "build": "tsc -b && vite build",
     "lint": "eslint ."
   },
