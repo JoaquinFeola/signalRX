@@ -82,7 +82,15 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
 
         this.subscribe((value) => {
 
-            if (typeof value === "object" && this.storageValues && this.storageValues !== true) {
+            if ( typeof value == "object" && this.storageValues && value ) {
+                const valuesToSave: [keyof T, boolean][] = Object.entries(this.storageValues)
+                                            .filter(value => value[1] == true) as [keyof T, boolean][];
+
+                for (const valueToSave of valuesToSave) {
+                    this.saveToStorage(value[valueToSave[0] as keyof T] as T);
+                }
+            }
+         /*    if (typeof value === "object" && this.storageValues && this.storageValues !== true) {
                 const selectedKeys = Object.entries(this.storageValues)
                     .filter(([, shouldSave]) => shouldSave)
                     .map(([key]) => key);
@@ -97,7 +105,7 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
 
             if (this.storageValues === true || typeof value !== "object") {
                 this.saveToStorage(value as T);
-            }
+            } */
         });
     }
 
@@ -116,7 +124,7 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         for (const key in this.value) {
             if ( storedValues[key as keyof T] == undefined ) storedValues[key as keyof T] = true;
         }
-
+        console.log(storedValues)
         this.storageValues = storedValues as SignalConfigStorage<T>["values"];
 
     }
