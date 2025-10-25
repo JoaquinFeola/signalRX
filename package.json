@@ -10,6 +10,7 @@
     "./dist"
   ],
   "scripts": {
+    "release": "pnpm version patch && pnpm publish",
     "build": "tsc -b && vite build",
     "lint": "eslint ."
   },
