@@ -64,35 +64,31 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
             sessionstorage: SessionStorageAdapter
         };
 
-        if (this.config.storage) this.storage = storages[this.config.storage?.storageType]
+        if ( this.config.storage ) this.storage = storages[this.config.storage?.storageType]
 
         this.subscribe((value) => {
 
-            if (typeof value == "object") {
+            if (typeof value == "object" && this.storageValues) {
+                const toSave = Object.fromEntries(
+                    Object.entries(this.storageValues).filter(([, v]) => v == true)
+                );
+
+                const newSaveValue: Partial<T> = {};
+
+                Object.keys(toSave).map(k => {
+                    return newSaveValue[k as keyof T] = value?.[k as keyof T]
+                });
+
+                this.saveToStorage(newSaveValue as T)
+            } 
+
+            if (typeof value !== "object") {
                 this.saveToStorage(value);
-                console.log(value)
+            } 
+
+            if (this.storageValues == true) {
+                this.saveToStorage(value as T);
             }
-            /*   if (typeof value == "object" && this.storageValues) {
-                  const toSave = Object.fromEntries(
-                      Object.entries(this.storageValues).filter(([, v]) => v == true)
-                  );
-  
-                  const newSaveValue: Partial<T> = {};
-  
-                  Object.keys(toSave).map(k => {
-                      return newSaveValue[k as keyof T] = value?.[k as keyof T]
-                  });
-  
-                  this.saveToStorage(newSaveValue as T)
-              } 
-  
-              if (typeof value !== "object") {
-                  this.saveToStorage(value);
-              } 
-  
-              if (this.storageValues == true) {
-                  this.saveToStorage(value as T);
-              } */
         });
     }
 
