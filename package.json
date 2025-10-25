@@ -1,6 +1,6 @@
 {
   "name": "signalrx",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "A lightweight library for managing signals as global reactive stores.",
   "type": "module",
   "main": "./dist/index.js",
