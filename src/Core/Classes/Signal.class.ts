@@ -36,8 +36,8 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
     private initializeValue() {
         const { storage } = this.config;
 
+        this.initializeStorage();
         if (storage && this.hasStorageValue()) {
-            this.initializeStorage();
 
             const storedValue = this.storage.getValue(storage.name);
             if (!storedValue) return;
