@@ -1,6 +1,6 @@
 {
   "name": "signalrx",
-  "version": "1.0.32",
+  "version": "1.0.30",
   "description": "A lightweight library for managing signals as global reactive stores.",
   "type": "module",
   "main": "./dist/index.js",
@@ -32,7 +32,7 @@
     "global-state"
   ],
   "author": "Joaquin Feola",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JoaquinFeola/signalRX.git"
