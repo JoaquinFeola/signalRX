@@ -44,12 +44,11 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
             const parsedValue: T = JSON.parse(storedValue);
 
             this.value = parsedValue;
-            this.saveToStorage(this.value)
 
         } else {
             this.value = this.initialState;
-            this.saveToStorage(this.value)
         }
+        this.saveToStorage(this.value)
 
     }
 
