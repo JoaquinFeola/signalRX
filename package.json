@@ -32,7 +32,7 @@
     "global-state"
   ],
   "author": "Joaquin Feola",
-  "license": "BSD-2-Clause",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JoaquinFeola/signalRX.git"
