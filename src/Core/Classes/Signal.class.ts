@@ -17,7 +17,10 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
     ) {
         super();
         this.initializeValue();
-        if ( config.storage ) this.initializeStorage();
+        if (config.storage) {
+            this.initializeStorageValues();
+            this.initializeStorage()
+        };
     };
 
 
@@ -74,7 +77,9 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
                 partializedValuesToSave[valueKey] = value?.[valueKey];
             }
             return partializedValuesToSave
-        }
+        };
+
+        return value;
     }
     private initializeStorageType() {
         const { storage } = this.config;
@@ -91,7 +96,6 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
     }
 
     private initializeStorage() {
-        this.initializeStorageValues();
 
         const { storage } = this.config;
         if (!storage) return;
@@ -99,27 +103,7 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
 
         this.subscribe(value => {
 
-            if (typeof value === "object") {
-                if (!this.storageValues) return;
-                const valuesToSave: Record<keyof T, boolean> = Object.fromEntries(
-                    Object.entries(this.storageValues)
-                        .filter(sv => sv[1] == true)
-                ) as Record<keyof T, boolean>;
-
-                const partializedValuesToSave: Partial<T> = {};
-
-                for (const valueKey in valuesToSave) {
-                    partializedValuesToSave[valueKey] = value?.[valueKey];
-                }
-
-                this.saveToStorage(partializedValuesToSave);
-            }
-
-
-
-
-
-
+            this.saveToStorage(value);
         })
     }
 
