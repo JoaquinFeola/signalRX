@@ -55,8 +55,26 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
 
     private saveToStorage(value: Partial<T>) {
         if (!this.config.storage) return;
+        const partializeValue = this.partializeStorageValue(value);
 
-        this.storage.setValue(this.config.storage.name, value);
+        this.storage.setValue(this.config.storage.name, partializeValue);
+    }
+
+    private partializeStorageValue(value: Partial<T>) {
+        if (typeof value === "object") {
+            if (!this.storageValues) return;
+            const valuesToSave: Record<keyof T, boolean> = Object.fromEntries(
+                Object.entries(this.storageValues)
+                    .filter(sv => sv[1] == true)
+            ) as Record<keyof T, boolean>;
+
+            const partializedValuesToSave: Partial<T> = {};
+
+            for (const valueKey in valuesToSave) {
+                partializedValuesToSave[valueKey] = value?.[valueKey];
+            }
+            return partializedValuesToSave
+        }
     }
 
     private initializeStorage() {
