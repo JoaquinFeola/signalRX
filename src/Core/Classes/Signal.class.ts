@@ -99,7 +99,7 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         const { storage } = this.config;
         if (!storage) return;
 
-        if (typeof storage.values === "object" && typeof this.value === "object") {
+        if ( typeof this.value === "object") {
             const storageValues: Record<keyof T, boolean> = storage.values as Record<keyof T, boolean>;
             const newStoredValues: Record<keyof T, boolean> = {} as Record<keyof T, boolean>;
 
