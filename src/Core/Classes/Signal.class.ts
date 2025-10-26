@@ -45,7 +45,9 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
             this.value = parsedValue;
         } else {
             this.value = this.initialState;
+            this.saveToStorage(this.value)
         }
+
     }
 
     private saveToStorage(value: Partial<T>) {
