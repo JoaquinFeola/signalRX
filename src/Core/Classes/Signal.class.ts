@@ -17,6 +17,7 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
     ) {
         super();
         this.initializeValue();
+        if ( config.storage ) this.initializeStorage();
     };
 
 
@@ -36,7 +37,7 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
     private initializeValue() {
         const { storage } = this.config;
 
-        this.initializeStorage();
+        this.initializeStorageType();
         if (storage && this.hasStorageValue()) {
 
             const storedValue = this.storage.getValue(storage.name);
@@ -75,10 +76,7 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
             return partializedValuesToSave
         }
     }
-
-    private initializeStorage() {
-        this.initializeStorageValues();
-
+    private initializeStorageType() {
         const { storage } = this.config;
 
         if (!storage) return;
@@ -90,6 +88,14 @@ export class Signal<T> extends Observer<T> implements ISignal<T> {
         }
 
         this.storage = storages[storage.storageType] as SignalStorage;
+    }
+
+    private initializeStorage() {
+        this.initializeStorageValues();
+
+        const { storage } = this.config;
+        if (!storage) return;
+
 
         this.subscribe(value => {
 
